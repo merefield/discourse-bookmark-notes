@@ -1,0 +1,18 @@
+.bookmark-note-editor {
+  margin-block-end: 1em;
+
+  &__composer {
+    min-height: 10em;
+  }
+
+  &__loading {
+    display: flex;
+    min-height: 10em;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+html.modal-open .toolbar-popup-menu-options {
+  z-index: z("modal", "dropdown");
+}
