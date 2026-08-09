@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { isDestroyed, isDestroying } from "@ember/destroyable";
+import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
 import DEditor from "discourse/ui-kit/d-editor";
@@ -60,9 +61,31 @@ export default class BookmarkNoteEditor extends Component {
     this.bookmark.bookmarkNoteRaw = this.raw;
   }
 
+  @action
+  stopEnterPropagation(event) {
+    if (event.key === "Enter") {
+      event.stopPropagation();
+    }
+  }
+
+  @action
+  preventSubmit(event) {
+    event.preventDefault();
+  }
+
   <template>
-    <div class="bookmark-note-editor">
-      <label class="control-label" for="bookmark-note-raw">
+    {{! eslint-disable-next-line ember/template-no-invalid-interactive }}
+    <form
+      class="bookmark-note-editor"
+      aria-labelledby="bookmark-note-label"
+      {{on "keydown" this.stopEnterPropagation}}
+      {{on "submit" this.preventSubmit}}
+    >
+      <label
+        id="bookmark-note-label"
+        class="control-label"
+        for="bookmark-note-raw"
+      >
         {{i18n "discourse_bookmark_notes.label"}}
       </label>
 
@@ -83,6 +106,6 @@ export default class BookmarkNoteEditor extends Component {
           class="bookmark-note-editor__composer"
         />
       {{/if}}
-    </div>
+    </form>
   </template>
 }
