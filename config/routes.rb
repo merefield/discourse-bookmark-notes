@@ -5,6 +5,4 @@ DiscourseBookmarkNotes::Engine.routes.draw do
   put "/:bookmark_id" => "bookmark_notes#update"
 end
 
-Discourse::Application.routes.draw do
-  mount DiscourseBookmarkNotes::Engine, at: "/bookmark-notes"
-end
+Discourse::Application.routes.draw { mount DiscourseBookmarkNotes::Engine, at: "/bookmark-notes" }

@@ -31,3 +31,24 @@ module DiscourseBookmarkNotes
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: bookmark_notes
+#
+#  id             :bigint           not null, primary key
+#  cooked         :text             not null
+#  cooked_version :integer          not null
+#  raw            :text             not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  bookmark_id    :bigint           not null
+#
+# Indexes
+#
+#  index_bookmark_notes_on_bookmark_id  (bookmark_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (bookmark_id => bookmarks.id) ON DELETE => cascade
+#

@@ -3,6 +3,12 @@
 module PageObjects
   module Pages
     class BookmarkNotesTopic < PageObjects::Pages::Topic
+      def open_bookmark(post)
+        expand_post_actions_if_needed(post)
+        click_post_action_button(post, :bookmark)
+        self
+      end
+
       def expand_post_actions_if_needed(post)
         post_element = post_by_number(post)
         if post_element.has_css?(".show-more-actions", wait: 0)
