@@ -2,7 +2,7 @@
 
 # name: discourse-bookmark-notes
 # about: Adds private Markdown notes to bookmarks.
-# version: 0.1.4
+# version: 0.1.5
 # authors: Discourse
 # url: https://github.com/discourse/discourse-bookmark-notes
 
