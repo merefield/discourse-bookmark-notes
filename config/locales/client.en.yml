@@ -1,6 +1,14 @@
 en:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_bookmark_notes: "Bookmark Notes"
   js:
     discourse_bookmark_notes:
       label: "Personal note"
       placeholder: "Add a private Markdown note"
       load_error: "Your personal note could not be loaded."
+      post_button: "Bookmark notes"
+      titled_post_button: "Bookmark notes: %{title}"
+      edit_post_note: "Edit bookmark notes"

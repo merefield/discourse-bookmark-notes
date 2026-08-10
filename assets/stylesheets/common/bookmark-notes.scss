@@ -16,3 +16,12 @@
 html.modal-open .toolbar-popup-menu-options {
   z-index: z("modal", "dropdown");
 }
+
+.post-bookmark-note-button {
+  margin-block-start: 0.75em;
+
+  &__trigger {
+    color: var(--primary-high);
+    font-weight: bold;
+  }
+}

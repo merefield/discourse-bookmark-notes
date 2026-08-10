@@ -17,9 +17,13 @@ RSpec.describe "Bookmark personal notes" do
   let(:bookmark_menu) { PageObjects::Components::BookmarkMenu.new }
   let(:bookmark_list) { PageObjects::Components::BookmarkNotesList.new }
   let(:bookmark_modal) { PageObjects::Modals::BookmarkNote.new }
+  let(:post_note_button) { PageObjects::Components::PostBookmarkNoteButton.new(post) }
 
   before do
     SiteSetting.discourse_bookmark_notes_enabled = true
+    if SiteSetting.respond_to?(:discourse_bookmark_notes_pro_post_panel_enabled=)
+      SiteSetting.discourse_bookmark_notes_pro_post_panel_enabled = false
+    end
     current_user.user_option.update!(timezone: "Europe/London")
     other_user.user_option.update!(timezone: "Europe/London")
   end
@@ -144,5 +148,45 @@ RSpec.describe "Bookmark personal notes" do
 
     expect(bookmark_modal).to have_note("Other user's private note")
     expect(bookmark_modal).to have_no_note("Current user's private note")
+  end
+
+  it "opens an existing note from the post button by default" do
+    SiteSetting.discourse_bookmark_notes_post_button_enabled = true
+    bookmark =
+      Fabricate(:bookmark, user: current_user, bookmarkable: post, name: "Meeting research")
+    Fabricate(:bookmark_note, bookmark:, raw: "Private **follow-up**")
+    sign_in(current_user)
+
+    topic_page.visit_topic(topic)
+
+    expect(post_note_button).to be_visible
+    expect(post_note_button).to have_label("Bookmark notes: Meeting research")
+
+    post_note_button.open
+
+    expect(bookmark_modal).to be_open
+    expect(bookmark_modal).to have_bookmark_title("Meeting research")
+    expect(bookmark_modal).to have_note("Private **follow-up**")
+  end
+
+  it "does not show the post button for a bookmark without a note" do
+    SiteSetting.discourse_bookmark_notes_post_button_enabled = true
+    Fabricate(:bookmark, user: current_user, bookmarkable: post)
+    sign_in(current_user)
+
+    topic_page.visit_topic(topic)
+
+    expect(post_note_button).to be_not_visible
+  end
+
+  it "does not show the post button when its setting is disabled" do
+    SiteSetting.discourse_bookmark_notes_post_button_enabled = false
+    bookmark = Fabricate(:bookmark, user: current_user, bookmarkable: post)
+    Fabricate(:bookmark_note, bookmark:, raw: "Hidden from the post")
+    sign_in(current_user)
+
+    topic_page.visit_topic(topic)
+
+    expect(post_note_button).to be_not_visible
   end
 end
