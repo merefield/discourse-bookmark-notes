@@ -1,0 +1,3 @@
+en:
+  site_settings:
+    discourse_bookmark_notes_enabled: "Allow members to add private Markdown notes to their bookmarks. Note bodies are only available to the bookmark owner."
