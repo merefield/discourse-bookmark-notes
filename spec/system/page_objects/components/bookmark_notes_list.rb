@@ -6,9 +6,7 @@ module PageObjects
       def edit_bookmark(topic)
         row = bookmark_row(topic)
         row.find(".bookmark-actions-dropdown .select-kit-header").click
-        row.find(
-          ".bookmark-actions-dropdown .select-kit-row[data-value='edit']"
-        ).click
+        row.find(".bookmark-actions-dropdown .select-kit-row[data-value='edit']").click
         self
       end
     end

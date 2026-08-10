@@ -4,8 +4,7 @@ RSpec.describe DiscourseBookmarkNotes::BookmarkNote do
   fab!(:bookmark)
 
   it "cooks Markdown when the raw note changes" do
-    note =
-      Fabricate(:bookmark_note, bookmark: bookmark, raw: "A **private** note")
+    note = Fabricate(:bookmark_note, bookmark: bookmark, raw: "A **private** note")
 
     expect(note.cooked).to include("<strong>private</strong>")
     expect(note.cooked_version).to eq(described_class::COOKED_VERSION)

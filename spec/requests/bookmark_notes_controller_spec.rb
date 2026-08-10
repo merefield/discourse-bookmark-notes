@@ -46,10 +46,7 @@ RSpec.describe DiscourseBookmarkNotes::BookmarkNotesController do
     before { sign_in(user) }
 
     it "creates and updates a Markdown note" do
-      put "/bookmark-notes/#{bookmark.id}.json",
-          params: {
-            raw: "First **note**"
-          }
+      put "/bookmark-notes/#{bookmark.id}.json", params: { raw: "First **note**" }
 
       expect(response.status).to eq(204)
       note = bookmark.reload.bookmark_note
@@ -72,15 +69,11 @@ RSpec.describe DiscourseBookmarkNotes::BookmarkNotesController do
     end
 
     it "keeps notes independent for users who bookmark the same post" do
-      other_bookmark =
-        Fabricate(:bookmark, user: other_user, bookmarkable: post)
+      other_bookmark = Fabricate(:bookmark, user: other_user, bookmarkable: post)
 
       put "/bookmark-notes/#{bookmark.id}.json", params: { raw: "User note" }
       sign_in(other_user)
-      put "/bookmark-notes/#{other_bookmark.id}.json",
-          params: {
-            raw: "Other note"
-          }
+      put "/bookmark-notes/#{other_bookmark.id}.json", params: { raw: "Other note" }
 
       expect(response.status).to eq(204)
       expect(bookmark.reload.bookmark_note.raw).to eq("User note")

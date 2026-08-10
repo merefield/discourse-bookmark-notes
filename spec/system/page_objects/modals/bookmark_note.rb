@@ -24,8 +24,7 @@ module PageObjects
       end
 
       def has_note_editor?
-        has_css?(".bookmark-note-editor .d-editor") &&
-          has_field?("bookmark-note-raw")
+        has_css?(".bookmark-note-editor .d-editor") && has_field?("bookmark-note-raw")
       end
 
       def has_rich_note_editor?
@@ -33,9 +32,7 @@ module PageObjects
       end
 
       def has_rich_note_paragraphs?(*texts)
-        texts.all? do |text|
-          has_css?(".bookmark-note-editor .ProseMirror p", text:)
-        end
+        texts.all? { |text| has_css?(".bookmark-note-editor .ProseMirror p", text:) }
       end
 
       def has_note?(raw)
@@ -68,16 +65,11 @@ module PageObjects
       end
 
       def select_heading(level)
-        find(
-          ".toolbar-popup-menu-options .btn[data-name='heading-#{level}']"
-        ).click
+        find(".toolbar-popup-menu-options .btn[data-name='heading-#{level}']").click
       end
 
       def has_heading_preview?(level, text)
-        has_css?(
-          ".bookmark-note-editor .d-editor-preview h#{level}",
-          text: text
-        )
+        has_css?(".bookmark-note-editor .d-editor-preview h#{level}", text: text)
       end
 
       def has_existing_reminder?
