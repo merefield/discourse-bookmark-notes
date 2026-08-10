@@ -30,8 +30,11 @@ export default class PostBookmarkNoteButton extends Component {
   }
 
   get shouldShow() {
+    const proExtensionEnabled =
+      this.siteSettings.discourse_bookmark_notes_pro_ext_enabled ??
+      this.siteSettings.discourse_bookmark_notes_pro_post_panel_enabled;
     const proPanelEnabled =
-      this.siteSettings.discourse_bookmark_notes_pro_ext_enabled &&
+      proExtensionEnabled &&
       this.siteSettings.discourse_bookmark_notes_pro_post_panel_enabled;
 
     return (
