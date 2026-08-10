@@ -14,7 +14,11 @@ Discourse Bookmark Notes turns bookmarks into private, personal notes attached t
 
 ## Pro extension
 
-[Discourse Bookmark Notes Pro Ext](https://github.com/merefield/discourse-bookmark-notes-pro-ext) is an optional extension available to [GitHub Sponsors](https://github.com/sponsors/merefield) as a thank-you for supporting ongoing development. Sponsors receive access and installation details; install it alongside this base plugin to enable the additional features.
+[Discourse Bookmark Notes Pro Ext](https://github.com/merefield/discourse-bookmark-notes-pro-ext) is an optional extension available to GitHub Sponsors as a thank-you for supporting ongoing development. Individual sponsors on the $7/month tier receive access to the Pro extension and its installation details.
+
+**[Sponsor on GitHub to get Bookmark Notes Pro](https://github.com/sponsors/merefield)**
+
+Once you have access, install the Pro extension alongside this base plugin to enable the additional features.
 
 All Pro features have their own site settings and include:
 
