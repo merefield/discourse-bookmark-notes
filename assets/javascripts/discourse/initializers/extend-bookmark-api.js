@@ -40,16 +40,24 @@ export default {
             }
 
             notifyNoteChanged(bookmark) {
-              if (
-                bookmark.bookmarkNoteRaw === undefined ||
-                bookmark.bookmarkableType !== "Post"
-              ) {
+              const raw = bookmark.bookmarkNoteRaw;
+              if (raw === undefined) {
                 return;
               }
 
+              const saveData = bookmark.saveData;
+              const bookmarkableType =
+                bookmark.bookmarkableType ?? saveData?.bookmarkable_type;
+              if (bookmarkableType !== "Post") {
+                return;
+              }
+
+              const bookmarkableId =
+                bookmark.bookmarkableId ?? saveData?.bookmarkable_id;
+
               this.appEvents.trigger("bookmark-notes:changed", {
-                postId: bookmark.bookmarkableId,
-                note: bookmark.bookmarkNoteRaw.trim()
+                postId: bookmarkableId,
+                note: String(raw ?? "").trim()
                   ? { bookmark_id: bookmark.id, title: bookmark.name }
                   : null,
               });

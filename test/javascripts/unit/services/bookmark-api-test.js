@@ -7,6 +7,12 @@ module("Unit | Service | bookmark-api", function (hooks) {
 
   test("saves a note after creating its bookmark", async function (assert) {
     const requests = [];
+    let noteChanged;
+    this.owner
+      .lookup("service:app-events")
+      .on("bookmark-notes:changed", (event) => {
+        noteChanged = event;
+      });
     pretender.post("/bookmarks.json", () => {
       requests.push("bookmark");
       return response({ id: 42 });
@@ -18,6 +24,7 @@ module("Unit | Service | bookmark-api", function (hooks) {
 
     const bookmark = {
       id: null,
+      name: "Research",
       bookmarkNoteRaw: "Private note",
       saveData: {
         bookmarkable_id: 1,
@@ -32,6 +39,38 @@ module("Unit | Service | bookmark-api", function (hooks) {
       requests,
       ["bookmark", "note"],
       "saves the note after the bookmark exists"
+    );
+    assert.deepEqual(
+      noteChanged,
+      {
+        postId: 1,
+        note: { bookmark_id: 42, title: "Research" },
+      },
+      "uses the bookmark save data to notify the post"
+    );
+  });
+
+  test("treats a null note body as an empty note", function (assert) {
+    let noteChanged;
+    this.owner
+      .lookup("service:app-events")
+      .on("bookmark-notes:changed", (event) => {
+        noteChanged = event;
+      });
+
+    this.owner.lookup("service:bookmark-api").notifyNoteChanged({
+      id: 42,
+      bookmarkNoteRaw: null,
+      saveData: {
+        bookmarkable_id: 1,
+        bookmarkable_type: "Post",
+      },
+    });
+
+    assert.deepEqual(
+      noteChanged,
+      { postId: 1, note: null },
+      "notifies the post without attempting to trim null"
     );
   });
 

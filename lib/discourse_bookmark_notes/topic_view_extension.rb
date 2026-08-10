@@ -6,12 +6,12 @@ module DiscourseBookmarkNotes
       bookmarks = super
 
       if DiscourseBookmarkNotes.post_surface_enabled? && bookmarks.present? &&
-           !instance_variable_defined?(:@bookmark_notes_notes_preloaded)
+           !instance_variable_defined?(:@discourse_bookmark_notes_preloaded)
         ActiveRecord::Associations::Preloader.new(
           records: bookmarks,
           associations: :bookmark_note,
         ).call
-        @bookmark_notes_notes_preloaded = true
+        @discourse_bookmark_notes_preloaded = true
       end
 
       bookmarks
