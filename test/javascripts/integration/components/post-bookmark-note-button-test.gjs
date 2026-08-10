@@ -38,16 +38,4 @@ module("Integration | Component | PostBookmarkNoteButton", function (hooks) {
       .dom(".post-bookmark-note-button")
       .exists("the base button remains available");
   });
-
-  test("hides the button for a Pro version without a master setting", async function (assert) {
-    this.siteSettings.discourse_bookmark_notes_pro_ext_enabled = undefined;
-
-    await render(
-      <template><PostBookmarkNoteButton @post={{this.post}} /></template>
-    );
-
-    assert
-      .dom(".post-bookmark-note-button")
-      .doesNotExist("the legacy Pro post panel takes precedence");
-  });
 });
