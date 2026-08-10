@@ -1,3 +1,4 @@
 en:
   site_settings:
     discourse_bookmark_notes_enabled: "Allow members to add private Markdown notes to their bookmarks. Note bodies are only available to the bookmark owner."
+    discourse_bookmark_notes_post_button_enabled: "Show a button below bookmarked posts when the current user has added a personal note. The button opens the bookmark editor. A Bookmark Notes Pro post panel, when enabled, is shown instead. Enabled by default."

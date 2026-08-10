@@ -1,4 +1,11 @@
-plugins:
+discourse_bookmark_notes:
   discourse_bookmark_notes_enabled:
     default: true
     client: true
+  discourse_bookmark_notes_post_button_enabled:
+    default: true
+    client: true
+    depends_on:
+      - discourse_bookmark_notes_enabled
+    depends_behavior: hidden
+    dependent_setting_display: inline
